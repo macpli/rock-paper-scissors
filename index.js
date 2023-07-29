@@ -1,45 +1,53 @@
+/*
+rock = 0
+paper = 1
+scissors = 2
+
+*/
+
+
 function getComputerChoice() {
-    let choice;
-    let x = Math.floor(Math.random() * 3 );
-    
-    if (x == 0) {
-        choice = "rock";
-    } else if (x==1) {
-        choice = "paper";
-    } else {
-        choice = "scissors";
-    }
+    let choice = Math.floor(Math.random() * 3 );
 
     return choice;
 }
 
 function playerChoice() {
     let choice = prompt("Chose");
-    return choice.toLocaleLowerCase();
+    choice = choice.toLocaleLowerCase();
+
+    if(choice == "rock"){
+        choice = 0;
+    } else if(choice == "paper"){
+        choice = 1;
+    } else if(choice == "scissors"){
+        choice = 2;
+    }
+    return choice;
 }
 
 function playRound(playerChoice, getComputerChoice) {
     let result;
 
-    if (playerChoice == "rock" && getComputerChoice == "scissors") {
+    if (playerChoice == 0 && getComputerChoice == 2) {
         result = 1;
-    } else if (playerChoice == "rock" && getComputerChoice == "paper") {
+    } else if (playerChoice == 0 && getComputerChoice == 1) {
         result = 2;
-    } else if (playerChoice == "rock" && getComputerChoice == "rock"){
+    } else if (playerChoice == 0 && getComputerChoice == 0){
         result = 0;
-    }  else if (playerChoice == "paper" && getComputerChoice == "rock"){
+    }  else if (playerChoice == 1 && getComputerChoice == 0){
         result = 1;
-    }  else if (playerChoice == "paper" && getComputerChoice == "paper"){
+    }  else if (playerChoice == 1 && getComputerChoice == 1){
         result = 0;
-    }  else if (playerChoice == "paper" && getComputerChoice == "scissors"){
+    }  else if (playerChoice == 1 && getComputerChoice == 2){
         result = 2;
-    } else if (playerChoice == "scissors" && getComputerChoice == "rock"){
+    } else if (playerChoice == 2 && getComputerChoice == 0){
         result = 2;
-    } else if (playerChoice == "scissors" && getComputerChoice == "paper"){
+    } else if (playerChoice == 2 && getComputerChoice == 1){
         result = 1;
-    } else if (playerChoice == "scissors" && getComputerChoice == "scissors"){
+    } else if (playerChoice == 2 && getComputerChoice == 2){
         result = 0;
-    } else {result="Wrong input. Try again."}
+    }
 
     return result;
 }
@@ -72,8 +80,6 @@ function game() {
             computerScore += 1;
             console.log("Computer wins the battle");
         } else if(winner == 0){
-            playerScore += 1;
-            computerScore += 1;
             console.log("Tie");
         } else {console.log("playRound ERROR");}
 
