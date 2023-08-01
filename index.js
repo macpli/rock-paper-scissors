@@ -3,6 +3,10 @@ rock = 0
 paper = 1
 scissors = 2
 
+player = 1
+computer = 2
+tie = 0
+
 */
     const btnRock = document.getElementById('btnRock')
    const btnPaper = document.getElementById('btnPaper')
@@ -80,36 +84,32 @@ const winCon = function(score) {
     }
 }
 
+const completeRound = function(playerChoice) {
+    scoreUpdate(winner = playRound(playerChoice, getComputerChoice()));
+    checkScore(playerScore, computerScore, rounds);
+    console.log(playerScore, computerScore);
+    disComputerScore.textContent = computerScore;
+    disPlayerScore.textContent = playerScore;
+}
+
 const rounds = 3;
 let playerScore = 0;
 let computerScore = 0;
 
 btnRock.addEventListener('click', () => { 
-    scoreUpdate(winner = playRound(0, getComputerChoice()));
-    checkScore(playerScore, computerScore, rounds);
-    console.log(playerScore, computerScore);
-    disComputerScore.textContent = computerScore;
-    disPlayerScore.textContent = playerScore;
+    completeRound(0);
 
     winCon(checkScore(playerScore, computerScore, rounds));
  })  
 
  btnPaper.addEventListener('click', () => { 
-    scoreUpdate(winner = playRound(1, getComputerChoice()));
-    checkScore(playerScore, computerScore);
-    console.log(playerScore, computerScore);
-    disComputerScore.textContent = computerScore;
-    disPlayerScore.textContent = playerScore;
+    completeRound(1);
 
     winCon(checkScore(playerScore, computerScore, rounds));
  })
 
  btnScissors.addEventListener('click', () => { 
-    scoreUpdate(winner = playRound(2, getComputerChoice()));
-    checkScore(playerScore, computerScore)
-    console.log(playerScore, computerScore);
-    disComputerScore.textContent = computerScore;
-    disPlayerScore.textContent = playerScore;
+    completeRound(2);
 
     winCon(checkScore(playerScore, computerScore, rounds));
  })
