@@ -7,13 +7,14 @@ scissors = 2
     const btnRock = document.getElementById('btnRock')
    const btnPaper = document.getElementById('btnPaper')
    const btnScissors = document.getElementById('btnScissors')
+    const disPlayerScore = document.getElementById('disPlayerScore')
+    const disComputerScore = document.getElementById('disComputerScore')
+
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 );
     return choice;
 }
-
-   
 
 function playRound(playerChoice, getComputerChoice) {
     let result;
@@ -79,7 +80,6 @@ const winCon = function(score) {
     }
 }
 
-
 const rounds = 3;
 let playerScore = 0;
 let computerScore = 0;
@@ -88,6 +88,8 @@ btnRock.addEventListener('click', () => {
     scoreUpdate(winner = playRound(0, getComputerChoice()));
     checkScore(playerScore, computerScore, rounds);
     console.log(playerScore, computerScore);
+    disComputerScore.textContent = computerScore;
+    disPlayerScore.textContent = playerScore;
 
     winCon(checkScore(playerScore, computerScore, rounds));
  })  
@@ -96,6 +98,8 @@ btnRock.addEventListener('click', () => {
     scoreUpdate(winner = playRound(1, getComputerChoice()));
     checkScore(playerScore, computerScore);
     console.log(playerScore, computerScore);
+    disComputerScore.textContent = computerScore;
+    disPlayerScore.textContent = playerScore;
 
     winCon(checkScore(playerScore, computerScore, rounds));
  })
@@ -104,6 +108,8 @@ btnRock.addEventListener('click', () => {
     scoreUpdate(winner = playRound(2, getComputerChoice()));
     checkScore(playerScore, computerScore)
     console.log(playerScore, computerScore);
+    disComputerScore.textContent = computerScore;
+    disPlayerScore.textContent = playerScore;
 
     winCon(checkScore(playerScore, computerScore, rounds));
  })
