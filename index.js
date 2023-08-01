@@ -4,27 +4,16 @@ paper = 1
 scissors = 2
 
 */
-
+    const btnRock = document.getElementById('btnRock')
+   const btnPaper = document.getElementById('btnPaper')
+   const btnScissors = document.getElementById('btnScissors')
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 );
-
     return choice;
 }
 
-function playerChoice() {
-    let choice = prompt("Chose");
-    choice = choice.toLocaleLowerCase();
-
-    if(choice == "rock"){
-        choice = 0;
-    } else if(choice == "paper"){
-        choice = 1;
-    } else if(choice == "scissors"){
-        choice = 2;
-    }
-    return choice;
-}
+   
 
 function playRound(playerChoice, getComputerChoice) {
     let result;
@@ -52,42 +41,69 @@ function playRound(playerChoice, getComputerChoice) {
     return result;
 }
 
-function checkScore(playerScore, computerScore){
+const scoreUpdate = function(winner) {
+    if(winner == 1){
+        playerScore += 1;
+        console.log("Player wins the battle");
+    } else if(winner == 2){
+        computerScore += 1;
+        console.log("Computer wins the battle");
+    } else if(winner == 0){
+        console.log("Tie");
+    } else {console.log("playRound ERROR");}
+}
+
+function checkScore(playerScore, computerScore, rounds){
     let winner;
-    if(playerScore > computerScore) {
-        winner = "Player";
-    } else if (playerScore < computerScore) {
-        winner = "Computer";
-    } else if (playerScore == computerScore) { 
-        winner = "Tie";
+    if(playerScore > computerScore && playerScore == rounds) {
+        winner = 1;
+    } else if (playerScore < computerScore && computerScore == rounds) {
+        winner = 2;
+    } else if (playerScore == computerScore && playerScore == rounds) { 
+        winner = 0;
     }
 
     return winner;
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for(let i = 0; i < 5; i++ ) {
+const winCon = function(score) {
+    if(score == 1){
+        console.log("Player wins the game");
+       
+    } else if (score == 2) {
+        console.log("Computer wins the game");
         
-        winner = playRound(playerChoice(), getComputerChoice());
-
-        if(winner == 1){
-            playerScore += 1;
-            console.log("Player wins the battle");
-        } else if(winner == 2){
-            computerScore += 1;
-            console.log("Computer wins the battle");
-        } else if(winner == 0){
-            console.log("Tie");
-        } else {console.log("playRound ERROR");}
-
+    } else if (score == 0) {
+        console.log("The game is a tie");
+        
     }
-
-    console.log("The score is ", playerScore, computerScore);
-
-    console.log(checkScore(playerScore, computerScore), " wins the game!!!");
 }
 
-game();
+
+const rounds = 3;
+let playerScore = 0;
+let computerScore = 0;
+
+btnRock.addEventListener('click', () => { 
+    scoreUpdate(winner = playRound(0, getComputerChoice()));
+    checkScore(playerScore, computerScore, rounds);
+    console.log(playerScore, computerScore);
+
+    winCon(checkScore(playerScore, computerScore, rounds));
+ })  
+
+ btnPaper.addEventListener('click', () => { 
+    scoreUpdate(winner = playRound(1, getComputerChoice()));
+    checkScore(playerScore, computerScore);
+    console.log(playerScore, computerScore);
+
+    winCon(checkScore(playerScore, computerScore, rounds));
+ })
+
+ btnScissors.addEventListener('click', () => { 
+    scoreUpdate(winner = playRound(2, getComputerChoice()));
+    checkScore(playerScore, computerScore)
+    console.log(playerScore, computerScore);
+
+    winCon(checkScore(playerScore, computerScore, rounds));
+ })
