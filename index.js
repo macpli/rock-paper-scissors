@@ -5,7 +5,7 @@ scissors = 2
 
 player = 1
 computer = 2
-tie = 0
+tie = 3
 
 */
     const btnRock = document.getElementById('btnRock')
@@ -14,6 +14,18 @@ tie = 0
     const disPlayerScore = document.getElementById('disPlayerScore')
     const disComputerScore = document.getElementById('disComputerScore')
 
+    const gameResult = document.querySelector('.result')
+    const gameResultContent = document.createElement('div')
+    gameResultContent.textContent = " wins!"
+
+    const playerWin = document.createElement('span')
+    playerWin.textContent = 'Player Wins!'
+
+    const computerWin = document.createElement('span')
+    computerWin.textContent = 'Computer Wins!'
+
+    // const gameTie = document.createElement('span')
+    // gameTie.textContent = 'The game is a tie!'
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 );
@@ -65,23 +77,31 @@ function checkScore(playerScore, computerScore, rounds){
     } else if (playerScore < computerScore && computerScore == rounds) {
         winner = 2;
     } else if (playerScore == computerScore && playerScore == rounds) { 
-        winner = 0;
+        winner = 3;
     }
 
     return winner;
 }
 
 const winCon = function(score) {
+    let isMet;
+
     if(score == 1){
         console.log("Player wins the game");
-       
+        return isMet =1
     } else if (score == 2) {
         console.log("Computer wins the game");
-        
-    } else if (score == 0) {
+        return isMet = 2
+    } else if (score == 3) {
         console.log("The game is a tie");
-        
+        return isMet =3
     }
+}
+
+const finalResults = function() {
+    btnRock.remove();
+    btnPaper.remove();
+    btnScissors.remove();
 }
 
 const completeRound = function(playerChoice) {
@@ -90,6 +110,17 @@ const completeRound = function(playerChoice) {
     console.log(playerScore, computerScore);
     disComputerScore.textContent = computerScore;
     disPlayerScore.textContent = playerScore;
+
+    if(winCon(checkScore(playerScore, computerScore, rounds)) == 1){
+        finalResults();
+        gameResult.append(playerWin)
+    } else if(winCon(checkScore(playerScore, computerScore, rounds) == 2)){
+        gameResult.append(computerWin)
+        finalResults();
+    // } else if(winCon(checkScore(playerScore, computerScore, rounds) == 3)){
+    //     finalResults();
+    //     gameResult.append(gameTie);
+    } 
 }
 
 const rounds = 3;
@@ -98,18 +129,12 @@ let computerScore = 0;
 
 btnRock.addEventListener('click', () => { 
     completeRound(0);
-
-    winCon(checkScore(playerScore, computerScore, rounds));
  })  
 
  btnPaper.addEventListener('click', () => { 
     completeRound(1);
-
-    winCon(checkScore(playerScore, computerScore, rounds));
  })
 
  btnScissors.addEventListener('click', () => { 
     completeRound(2);
-
-    winCon(checkScore(playerScore, computerScore, rounds));
  })
