@@ -11,4 +11,4 @@ Well-known rock paper scissors game replicated in JavaScript. My first JavaScrip
 - Based on real life game,  rock beats scissors etc.
 
 # State:
-Work in progress
+Finished (?)
