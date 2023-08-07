@@ -8,26 +8,30 @@ computer = 2
 tie = 3
 
 */
-    const btnRock = document.getElementById('btnRock')
-   const btnPaper = document.getElementById('btnPaper')
-   const btnScissors = document.getElementById('btnScissors')
-   const btnAgain = document.createElement('button')
-   const btnContainer = document.querySelector('.buttonContainer')
-    const disPlayerScore = document.getElementById('disPlayerScore')
-    const disComputerScore = document.getElementById('disComputerScore')
+// Getting and creating DOM elements
+const btnRock = document.getElementById('btnRock')
+const btnPaper = document.getElementById('btnPaper')
+const btnScissors = document.getElementById('btnScissors')
+const btnAgain = document.createElement('button')
+const btnContainer = document.querySelector('.buttonContainer')
+const disPlayerScore = document.getElementById('disPlayerScore')
+const disComputerScore = document.getElementById('disComputerScore')
+const disRoundResult = document.createElement('div');
 
-    const gameResult = document.querySelector('.result')
+const gameResult = document.querySelector('.result')
+const resultsContainer = document.querySelector('.resultsContainer')
+disRoundResult.className = 'roundResult'
 
-    const playerWin = document.createElement('span')
-    playerWin.textContent = 'Player Wins!'
+const playerWin = document.createElement('span')
+playerWin.textContent = 'Player Wins!'
 
-    const computerWin = document.createElement('span')
-    computerWin.textContent = 'Computer Wins!'
+const computerWin = document.createElement('span')
+computerWin.textContent = 'Computer Wins!'
 
-    btnAgain.textContent = 'Try Again'
-    // const gameTie = document.createElement('span')
-    // gameTie.textContent = 'The game is a tie!'
+btnAgain.textContent = 'Try Again'
+btnAgain.className = 'btnAgain';
 
+// Getting computer's choice
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 );
     return choice;
@@ -63,11 +67,17 @@ const scoreUpdate = function(winner) {
     if(winner == 1){
         playerScore += 1;
         console.log("Player wins the battle");
+        disRoundResult.textContent = "Player wins the battle";
+        resultsContainer.append(disRoundResult);
     } else if(winner == 2){
         computerScore += 1;
         console.log("Computer wins the battle");
+        disRoundResult.textContent = "Computer wins the battle";
+        resultsContainer.append(disRoundResult);
     } else if(winner == 0){
         console.log("Tie");
+        disRoundResult.textContent = "The battle is a tie";
+        resultsContainer.append(disRoundResult);
     } else {console.log("playRound ERROR");}
 }
 
@@ -122,10 +132,21 @@ const completeRound = function(playerChoice) {
         gameResult.textContent = "";
         gameResult.append(computerWin);
         btnContainer.append(btnAgain);
-    // } else if(winCon(checkScore(playerScore, computerScore, rounds) == 3)){
-    //     finalResults();
-    //     gameResult.append(gameTie);
     } 
+}
+
+const RestartGame = function(){
+    const btn = document.querySelector('.btnAgain');
+    btn.remove();
+
+    btnContainer.append(btnRock);
+    btnContainer.append(btnPaper);
+    btnContainer.append(btnScissors);
+    playerScore = 0;
+    computerScore = 0;
+    disComputerScore.textContent = computerScore;
+    disPlayerScore.textContent = playerScore;
+    gameResult.textContent = 'Rock Paper Scissors';
 }
 
 const rounds = 3;
@@ -143,3 +164,6 @@ btnRock.addEventListener('click', () => {
  btnScissors.addEventListener('click', () => { 
     completeRound(2);
  })
+
+ btnAgain.addEventListener('click', RestartGame)
+
