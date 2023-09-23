@@ -18,6 +18,10 @@ const disPlayerScore = document.getElementById('disPlayerScore')
 const disComputerScore = document.getElementById('disComputerScore')
 const disRoundResult = document.createElement('div');
 
+const choiceContainer = document.querySelector('.choiceContainer');
+const playerChoiceDisplay = document.createElement('div');
+const computerChoiceDisplay = document.createElement('div');
+
 const gameResult = document.querySelector('.result')
 const resultsContainer = document.querySelector('.resultsContainer')
 disRoundResult.className = 'roundResult'
@@ -28,8 +32,18 @@ playerWin.textContent = 'Player Wins!'
 const computerWin = document.createElement('span')
 computerWin.textContent = 'Computer Wins!'
 
-btnAgain.textContent = 'Try Again'
+btnAgain.textContent = 'Play Again'
 btnAgain.className = 'btnAgain';
+
+function convertNumToChoice(num){
+    if(num == 0){
+        return 'Rock';
+    } else if(num == 1){
+        return 'Paper';
+    } else if(num == 2){
+        return 'Scissors';
+    }
+}
 
 // Getting computer's choice
 function getComputerChoice() {
@@ -39,6 +53,12 @@ function getComputerChoice() {
 
 function playRound(playerChoice, getComputerChoice) {
     let result;
+
+    playerChoiceDisplay.textContent = 'Player: ' + convertNumToChoice(playerChoice);
+    computerChoiceDisplay.textContent = 'Computer: ' + convertNumToChoice(getComputerChoice);
+
+    choiceContainer.append(playerChoiceDisplay);
+    choiceContainer.append(computerChoiceDisplay);
 
     if (playerChoice == 0 && getComputerChoice == 2) {
         result = 1;
